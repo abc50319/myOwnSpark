@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?><!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+--><configuration>
+  <!-- WARNING!!! This file is auto generated for documentation purposes ONLY! -->
+  <!-- WARNING!!! Any changes you make to this file will be ignored by Hive.   -->
+  <!-- WARNING!!! You must make your changes in hive-site.xml instead.         -->
+  <!-- Hive Execution Parameters -->
+  <property>
+  <name>hive.metastore.uris</name>
+  <value>thrift://cnsz17pl1786:9083,thrift://cnsz17pl1787:9083,thrift://cnsz17pl1790:9083</value>
+  <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore.</description>
+  </property>
+
+  <property>
+    <name>hive.exec.scratchdir</name>
+    <value>/tmp/hive</value>
+  </property>
+  <property>
+    <name>hive.metastore.warehouse.dir</name>
+    <value>hdfs://sfbdp1/user/hive/warehouse</value>
+  </property>
+  <property>
+    <name>hive.querylog.location</name>
+    <value>/log/hive</value>
+  </property>
+  <property>    
+    <name>hive.metastore.schema.verification</name>    
+    <value>false</value>    
+    <description>    
+     Enforce metastore schema version consistency.    
+     True: Verify that version information stored in metastore matches with one from Hive jars.  Also disable automatic    
+           schema migration attempt. Users are required to manully migrate schema after Hive upgrade which ensures    
+           proper metastore schema migration. (Default)    
+     False: Warn if the version information stored in metastore doesn't match with one from in Hive jars.    
+    </description>    
+  </property>
+  <property>
+    <name>hive.async.log.enabled</name>
+    <value>false</value>
+    <description>
+      Whether to enable Log4j2's asynchronous logging. Asynchronous logging can give
+       significant performance improvement as logging will be handled in separate thread
+       that uses LMAX disruptor queue for buffering log messages.
+       Refer https://logging.apache.org/log4j/2.x/manual/async.html for benefits and
+       drawbacks.
+    </description>
+  </property>
+  <property>
+    <name>hive.server2.support.dynamic.service.discovery</name>
+    <value>true</value>
+    <description>Whether HiveServer2 supports dynamic service discovery for its clients. To support this, each instance of HiveServer2 currently uses ZooKeeper to register itself, when it i
+s brought up. JDBC/ODBC clients should use the ZooKeeper ensemble: hive.zookeeper.quorum in their connection string.</description>
+  </property>
+  <property>
+    <name>hive.server2.zookeeper.namespace</name>
+    <value>hiveserver2-bdp</value>
+    <description>The parent node in ZooKeeper used by HiveServer2 when supporting dynamic service discovery.</description>
+  </property>
+  <property>
+    <name>hive.zookeeper.quorum</name>
+    <value>CNSZ17PL1786:2181,CNSZ17PL1787:2181,CNSZ17PL1788:2181,CNSZ17PL1789:2181,CNSZ17PL1790:2181</value>
+    <description>
+      List of ZooKeeper servers to talk to. This is needed for:
+      1. Read/write locks - when hive.lock.manager is set to
+      org.apache.hadoop.hive.ql.lockmgr.zookeeper.ZooKeeperHiveLockManager,
+      2. When HiveServer2 supports service discovery via Zookeeper.
+      3. For delegation token storage if zookeeper store is used, if
+      hive.cluster.delegation.token.store.zookeeper.connectString is not set
+      4. LLAP daemon registry service
+    </description>
+  </property>
+  <property>
+    <name>hive.zookeeper.client.port</name>
+    <value>2181</value>
+    <description>
+      The port of ZooKeeper servers to talk to.
+      If the list of Zookeeper servers specified in hive.zookeeper.quorum
+      does not contain port numbers, this value is used.
+    </description>
+  </property>
+  <property>
+    <name>hive.exec.stagingdir</name>
+    <value>/tmp/hive/.hive-staging</value>
+    <description>Directory name that will be created inside table locations in order to support HDFS encryption. This is replaces ${hive.exec.scratchdir} for query results with the exceptio
+n of read-only tables. In all cases ${hive.exec.scratchdir} is still used for other temporary files, such as job plans.</description>
+  </property>
+  <property>
+    <name>hive.server2.enable.doAs</name>
+    <value>false</value>
+    <description>
+      Setting this property to true will have HiveServer2 execute
+      Hive operations as the user making the calls to it.
+    </description>
+  </property>
+  <property>
+    <name>hive.warehouse.subdir.inherit.perms</name>
+    <value>false</value>
+    <description>
+      Set this to false if the table directories should be created
+      with the permissions derived from dfs umask instead of
+      inheriting the permission of the warehouse or database directory.
+    </description>
+  </property>
+  <property>
+    <name>hive.security.authorization.sqlstd.confwhitelist</name>
+    <value>.*</value>
+    <description>
+      List of comma separated Java regexes. Configurations parameters that match these
+      regexes can be modified by user when SQL standard authorization is enabled.
+      To get the default value, use the 'set &lt;param&gt;' command.
+      Note that the hive.conf.restricted.list checks are still enforced after the white list
+      check
+    </description>
+  </property>
+  <property>
+    <name>hive.security.authorization.sqlstd.confwhitelist.append</name>
+    <value>.*</value>
+    <description>
+      List of comma separated Java regexes, to be appended to list set in
+      hive.security.authorization.sqlstd.confwhitelist. Using this list instead
+      of updating the original list means that you can append to the defaults
+      set by SQL standard authorization instead of replacing it entirely.
+    </description>
+  </property>
+  <property>
+        <name>hive.driver.parallel.compilation</name>
+        <value>true</value>
+        <description>
+        Whether to
+        enable parallel compilation between sessions on HiveServer2. The default is false.
+        </description>
+    </property>
+    <property>
+        <name>hive.server2.long.polling.timeout</name>
+        <value>500ms</value>
+        <description>
+           Expects a time value with unit (d/day, h/hour, m/min, s/sec, ms/msec, us/usec, ns/nsec), which is msec if not specified.
+           Time that HiveServer2 will wait before responding to asynchronous calls that use long polling
+        </description>
+    </property>
+    <property>
+            <name>hive.prewarm.enabled</name>
+            <value>true</value>
+    </property>
+
+    <property>
+            <name>hive.prewarm.numcontainers</name>
+            <value>1</value>
+    </property>
+    <property>
+            <name>hive.execution.engine</name>
+            <value>tez</value>
+    </property>
+</configuration>
